@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Box, Flex, Image, Title } from '@mantine/core';
+import { HoverPopOver } from '@/components/HoverPopOver/HoverPopOver';
 import { DefaultTemplate } from '@/components/template/DefaultTemplate';
 
 type Avatar = { id: string; imageSrc: string };
@@ -26,6 +27,11 @@ const TopInterestContent: TopInterestContentType[] = [
       { id: '2222b', imageSrc: 'https://picsum.photos/76/76' },
       { id: '2222c', imageSrc: 'https://picsum.photos/76/76' },
       { id: '2222d', imageSrc: 'https://picsum.photos/76/76' },
+      { id: '2222e', imageSrc: 'https://picsum.photos/76/76' },
+      { id: '2222f', imageSrc: 'https://picsum.photos/76/76' },
+      { id: '2222g', imageSrc: 'https://picsum.photos/76/76' },
+      { id: '2222h', imageSrc: 'https://picsum.photos/76/76' },
+      { id: '2222i', imageSrc: 'https://picsum.photos/76/76' },
     ],
   },
   {
@@ -54,9 +60,11 @@ export const FindPage: FC = () => {
           <Title order={1} size="h4">
             あなたの趣味と近い人
           </Title>
-          <Flex mt="8px" gap="8px">
+          <Flex mt={16} gap={16} wrap="wrap">
             {NearHobyPeople.map(({ id, imageSrc }) => (
-              <Image key={id} src={imageSrc} alt="Avatar" width="76px" height="76px" radius="50%" />
+              <HoverPopOver key={id}>
+                <Image src={imageSrc} alt="Avatar" width="76px" height="76px" radius="50%" />
+              </HoverPopOver>
             ))}
           </Flex>
         </Box>
@@ -66,17 +74,18 @@ export const FindPage: FC = () => {
             <Title order={1} size="h4">
               {tag.name}
             </Title>
-            <Flex mt={8} gap={8}>
+            <Flex mt={16} gap={16} wrap="wrap">
               {avatarList.map(({ id, imageSrc }) => (
-                <Image
-                  style={{ cursor: 'pointer' }}
-                  key={id}
-                  src={imageSrc}
-                  alt="Avatar"
-                  width="76px"
-                  height="76px"
-                  radius="50%"
-                />
+                <HoverPopOver key={id}>
+                  <Image
+                    style={{ cursor: 'pointer' }}
+                    src={imageSrc}
+                    alt="Avatar"
+                    width="76px"
+                    height="76px"
+                    radius="50%"
+                  />
+                </HoverPopOver>
               ))}
             </Flex>
           </Box>
