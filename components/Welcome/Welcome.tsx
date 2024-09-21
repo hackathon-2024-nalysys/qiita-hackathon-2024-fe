@@ -1,10 +1,11 @@
 import { Anchor, Text, Title } from '@mantine/core';
+import { DefaultTemplate } from '@/components/template/DefaultTemplate';
 import classes from './Welcome.module.css';
 
 export function Welcome() {
   return (
-    <>
-      <Title className={classes.title} ta="center" mt={100}>
+    <DefaultTemplate>
+      <Title className={classes.title} ta="center">
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
           Mantine
@@ -18,6 +19,6 @@ export function Welcome() {
         </Anchor>
         . To get started edit index.tsx file.
       </Text>
-    </>
+    </DefaultTemplate>
   );
 }
