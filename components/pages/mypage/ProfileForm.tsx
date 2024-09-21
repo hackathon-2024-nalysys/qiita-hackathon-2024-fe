@@ -30,7 +30,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex justify="space-between">
-        <Title order={1} size="h4">
+        <Title order={1} size="h2">
           プロフィール
         </Title>
         <Button variant="transparent" type="submit">

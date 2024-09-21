@@ -56,7 +56,10 @@ export const FindPage: FC = () => {
   ];
 
   return (
-    <DefaultTemplate title={TITLE}>
+    <DefaultTemplate>
+      <Title order={1} size="h2">
+        {TITLE}
+      </Title>
       <Flex direction="column" gap="16px">
         <Box mt={32}>
           <Title order={1} size="h4">

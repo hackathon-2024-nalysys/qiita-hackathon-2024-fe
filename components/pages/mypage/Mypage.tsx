@@ -14,7 +14,7 @@ export const Mypage: FC = () => {
   ];
 
   return (
-    <DefaultTemplate title={TITLE}>
+    <DefaultTemplate>
       <Flex direction="column" gap="32px">
         <ProfileForm
           onSubmit={() => console.log('hoge')}
