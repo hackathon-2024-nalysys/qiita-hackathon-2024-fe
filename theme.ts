@@ -7,7 +7,7 @@ export const theme = createTheme({
     yellow: [
       '#FFFBEF',
       '#FFDA5F',
-      '#FFC300',
+      '#F18d00',
       '#5C4E1F',
       '#5C4E1F',
       '#5C4E1F',

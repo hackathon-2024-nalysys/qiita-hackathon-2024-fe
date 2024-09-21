@@ -1,9 +1,18 @@
 import { FC } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconTrash } from '@tabler/icons-react';
+import { IconPlus, IconTrash } from '@tabler/icons-react';
 import { Control, useFieldArray, useForm, UseFormRegister } from 'react-hook-form';
 import * as z from 'zod';
-import { ActionIcon, Button, Fieldset, Flex, Text, TextInput, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Button,
+  Fieldset,
+  Flex,
+  Text,
+  TextInput,
+  Title,
+  useMantineTheme,
+} from '@mantine/core';
 
 // WHY: objectのarrayじゃないとuseFieldArrayが使えないみたい https://github.com/orgs/react-hook-form/discussions/7586
 const schema = z.object({
@@ -13,7 +22,7 @@ const schema = z.object({
 });
 type Schema = z.infer<typeof schema>;
 
-type ProfileFormProps = {
+export type ProfileFormProps = {
   onSubmit: (d: Schema) => void;
   defaultValues: {
     name: string;
@@ -34,12 +43,12 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
         <Title order={1} size="h2">
           プロフィール
         </Title>
-        <Button variant="transparent" type="submit">
+        <Button pr={0} variant="transparent" type="submit">
           完了
         </Button>
       </Flex>
       <Flex direction={'column'} gap={32} mt={24}>
-        <TextInput label="ユーザー名" placeholder="趣味 太郎" {...register('name')} />
+        <TextInput size="lg" label="ユーザー名" placeholder="趣味 太郎" {...register('name')} />
         <HobbiesFields
           control={control}
           register={register}
@@ -63,6 +72,7 @@ const HobbiesFields: FC<{
   name: 'hobbies' | 'privateHobbies';
   legend: string;
 }> = ({ control, register, name, legend }) => {
+  const theme = useMantineTheme();
   const { fields, append, remove } = useFieldArray({ control, name });
 
   return (
@@ -82,6 +92,7 @@ const HobbiesFields: FC<{
             <ActionIcon
               size="sm"
               variant="subtle"
+              color={theme.colors.yellow[2]}
               style={{ cursor: 'pointer' }}
               onClick={() => remove(index)}
             >
@@ -90,7 +101,16 @@ const HobbiesFields: FC<{
           }
         />
       ))}
-      <Button onClick={() => append({ value: '' })}>追加</Button>
+      {/* <Button size="lg" variant="outline" bg={'white'} onClick={() => append({ value: '' })}> */}
+      <Button
+        size="lg"
+        variant="outline"
+        bg={'white'}
+        onClick={() => append({ value: '' })}
+        color={theme.colors.yellow[2]}
+      >
+        <IconPlus />
+      </Button>
     </Fieldset>
   );
 };

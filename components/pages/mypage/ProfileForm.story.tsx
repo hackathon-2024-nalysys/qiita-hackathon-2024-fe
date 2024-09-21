@@ -7,6 +7,6 @@ export default {
 export const Usage = () => (
   <ProfileForm
     onSubmit={() => console.log('hoge')}
-    defaultValues={{ name: 'a', hobbies: ['inu', 'neko'] }}
+    defaultValues={{ name: 'a', hobbies: [{ value: 'kinu' }, { value: 'neko' }] }}
   />
 );
