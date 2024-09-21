@@ -1,7 +1,15 @@
 import { FC, ReactNode } from 'react';
-import { AppShell, Avatar, Container, Flex, rem, useMantineTheme } from '@mantine/core';
-import { theme } from '@/theme';
-import { Logo } from './Logo/Logo';
+import { IconSearch } from '@tabler/icons-react';
+import {
+  ActionIcon,
+  AppShell,
+  Avatar,
+  Box,
+  Container,
+  Flex,
+  rem,
+  useMantineTheme,
+} from '@mantine/core';
 
 type DefaultTemplateProps = {
   children: ReactNode;
@@ -13,17 +21,25 @@ export const DefaultTemplate: FC<DefaultTemplateProps> = ({ children }) => {
   const theme = useMantineTheme();
 
   return (
-    <AppShell bg="#FFFBEF" footer={{ height: { base: FOOTER_HEIGHT } }}>
+    <AppShell
+      style={{ overflow: 'auto' }}
+      bg={theme.colors.yellow[0]}
+      footer={{ height: { base: FOOTER_HEIGHT } }}
+    >
       <AppShell.Main>
         <Container h={`calc(${rem(`100vh - ${FOOTER_HEIGHT}`)})`} pt={56}>
           {children}
         </Container>
       </AppShell.Main>
-      <AppShell.Footer bg={theme.colors.blue[4]}>
-        <Flex h="100%" align="center" p={8} justify="space-between">
-          <Logo />
-          <Avatar src={AVATAR_ICON} size="sm" variant="filled" />
-          <Avatar src={AVATAR_ICON} size="sm" variant="filled" />
+      <AppShell.Footer>
+        <Flex h="100%" align="center" p="md" justify="space-between">
+          <Box size="sm" />
+          <ActionIcon color={theme.colors.yellow[4]} variant="subtle" aria-label="Find">
+            <IconSearch stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon variant="subtle" aria-label="MyPage">
+            <Avatar src={AVATAR_ICON} size="sm" variant="filled" />
+          </ActionIcon>
         </Flex>
       </AppShell.Footer>
     </AppShell>
