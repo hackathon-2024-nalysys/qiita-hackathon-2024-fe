@@ -19,7 +19,7 @@ export const Mypage: FC = () => {
         <ProfileForm
           onSubmit={() => console.log('hoge')}
           defaultValues={{
-            userName: '',
+            name: '',
             hobbies: [],
           }}
         />
