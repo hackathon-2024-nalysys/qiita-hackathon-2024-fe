@@ -28,7 +28,7 @@ export const DefaultTemplate: FC<DefaultTemplateProps> = ({ children }) => {
       footer={{ height: { base: FOOTER_HEIGHT } }}
     >
       <AppShell.Main>
-        <Container h={`calc(${rem(`100vh - ${FOOTER_HEIGHT}`)})`} pt={56}>
+        <Container pt={56} pb={40}>
           {children}
         </Container>
       </AppShell.Main>
