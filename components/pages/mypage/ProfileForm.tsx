@@ -56,7 +56,7 @@ const HobbiesFields: FC<{
           <TextInput
             label={`${index + 1}つ目`}
             placeholder="ボウリング"
-            {...register(`hobbies.${index}`)}
+            {...register(`hobbies.${index}.value`)}
           />
           <Button onClick={() => remove(index)}>削除</Button>
         </Fragment>
