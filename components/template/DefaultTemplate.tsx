@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { AppShell, Container, Flex, rem, Title, useMantineTheme } from '@mantine/core';
-import { Logo } from '@/components/template/Logo/Logo';
+import { Logo } from './Logo/Logo';
 
 type DefaultTemplateProps = {
   children: ReactNode;

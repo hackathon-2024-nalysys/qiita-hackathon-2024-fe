@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, Flex, Image, Title } from '@mantine/core';
-import { HoverPopOver } from '@/components/HoverPopOver/HoverPopOver';
 import { DefaultTemplate } from '@/components/template/DefaultTemplate';
+import { HoverPopOver } from '@/components/ui/HoverPopOver/HoverPopOver';
 
 type Avatar = { id: string; imageSrc: string };
 type TopInterestContentType = {
