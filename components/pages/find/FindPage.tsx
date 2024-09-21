@@ -15,8 +15,8 @@ export const FindPage: FC = () => {
   // TODO: APIで取得
   const NearHobyPeople: Avatar[] = [
     { id: '1111aaa', imageSrc: 'https://picsum.photos/76/76' },
-    { id: '1111aaa', imageSrc: 'https://picsum.photos/76/76' },
-    { id: '1111aaa', imageSrc: 'https://picsum.photos/76/76' },
+    { id: '1111bbb', imageSrc: 'https://picsum.photos/76/76' },
+    { id: '1111ccc', imageSrc: 'https://picsum.photos/76/76' },
   ];
 
   // TODO: APIで取得
