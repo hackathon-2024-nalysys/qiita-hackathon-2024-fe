@@ -32,10 +32,16 @@ export type ProfileFormProps = {
 };
 
 export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) => {
-  const { control, register, handleSubmit } = useForm({
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(schema),
     defaultValues,
   });
+  console.dir({ errors }, { depth: 2 });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +54,13 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
         </Button>
       </Flex>
       <Flex direction={'column'} gap={32} mt={24}>
-        <TextInput size="lg" label="ユーザー名" placeholder="趣味 太郎" {...register('name')} />
+        <TextInput
+          size="lg"
+          label="ユーザー名"
+          placeholder="趣味 太郎"
+          error={errors.name?.message}
+          {...register('name')}
+        />
         <HobbiesFields
           control={control}
           register={register}
@@ -89,15 +101,17 @@ const HobbiesFields: FC<{
           size="lg"
           {...register(`${name}.${index}.value`)}
           rightSection={
-            <ActionIcon
-              size="sm"
-              variant="subtle"
-              color={theme.colors.yellow[2]}
-              style={{ cursor: 'pointer' }}
-              onClick={() => remove(index)}
-            >
-              <IconTrash />
-            </ActionIcon>
+            fields.length === 1 ? null : (
+              <ActionIcon
+                size="sm"
+                variant="subtle"
+                color={theme.colors.yellow[2]}
+                style={{ cursor: 'pointer' }}
+                onClick={() => remove(index)}
+              >
+                <IconTrash />
+              </ActionIcon>
+            )
           }
         />
       ))}

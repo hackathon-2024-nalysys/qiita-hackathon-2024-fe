@@ -3,14 +3,15 @@ import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { Box, Button, PasswordInput, TextInput, Title } from '@mantine/core';
+import { Box, Button, PasswordInput, TextInput, Title, useMantineTheme } from '@mantine/core';
 import { DefaultTemplate } from '@/components/template/DefaultTemplate';
 import { login, LoginFormType, schema } from '@/usecase/login';
 
-const TITLE = 'ログインする';
+const TITLE = 'ログイン';
 
 export const LoginPage: FC = () => {
   const router = useRouter();
+  const theme = useMantineTheme();
   const {
     register,
     handleSubmit,
@@ -39,8 +40,9 @@ export const LoginPage: FC = () => {
         {TITLE}
       </Title>
       <Box mt={32}>
-        <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <TextInput
+            size="lg"
             label="ユーザー名"
             withAsterisk
             error={errors.name?.message}
@@ -48,6 +50,7 @@ export const LoginPage: FC = () => {
             disabled={isPending}
           />
           <PasswordInput
+            size="lg"
             label="パスワード"
             type="password"
             withAsterisk
@@ -55,7 +58,14 @@ export const LoginPage: FC = () => {
             {...register('password')}
             disabled={isPending}
           />
-          <Button variant="transparent" type="submit" loading={isPending}>
+          <Button
+            mt="lg"
+            size="lg"
+            color={theme.colors.yellow[2]}
+            c="white"
+            type="submit"
+            loading={isPending}
+          >
             ログイン
           </Button>
         </form>
