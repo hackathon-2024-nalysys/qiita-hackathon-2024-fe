@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import Link from 'next/link';
 import { IconSearch } from '@tabler/icons-react';
 import {
   ActionIcon,
@@ -34,12 +35,16 @@ export const DefaultTemplate: FC<DefaultTemplateProps> = ({ children }) => {
       <AppShell.Footer>
         <Flex h="100%" align="center" p="md" justify="space-between">
           <Box size="sm" />
-          <ActionIcon color={theme.colors.yellow[4]} variant="subtle" aria-label="Find">
-            <IconSearch stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon variant="subtle" aria-label="MyPage">
-            <Avatar src={AVATAR_ICON} size="sm" variant="filled" />
-          </ActionIcon>
+          <Link href="/find">
+            <ActionIcon color={theme.colors.yellow[4]} variant="subtle" aria-label="Find">
+              <IconSearch stroke={1.5} />
+            </ActionIcon>
+          </Link>
+          <Link href="/mypage">
+            <ActionIcon variant="subtle" aria-label="MyPage">
+              <Avatar src={AVATAR_ICON} size="sm" variant="filled" />
+            </ActionIcon>
+          </Link>
         </Flex>
       </AppShell.Footer>
     </AppShell>
