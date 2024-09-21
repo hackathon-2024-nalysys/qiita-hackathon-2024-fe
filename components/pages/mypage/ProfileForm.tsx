@@ -1,7 +1,6 @@
-import { ChangeEvent, FC, useState } from 'react';
-import { register } from 'module';
+import { ChangeEvent, FC, Fragment, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Control, useFieldArray, useForm, UseFormRegister } from 'react-hook-form';
+import { Control, FieldValues, useFieldArray, useForm, UseFormRegister } from 'react-hook-form';
 import * as z from 'zod';
 import { Button, Fieldset, Flex, TextInput, Title } from '@mantine/core';
 
@@ -18,10 +17,9 @@ const schema = z.object({
   hobbies: z.array(z.string()).min(1, '趣味は少なくとも一つは必要です。'), // ["サッカー", "イゴ"]
   privateHobbies: z.array(z.string()).optional(),
 });
-type ProfileInputType = z.infer<typeof schema>;
 
 export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) => {
-  const { control, register, handleSubmit } = useForm<ProfileInputType>({
+  const { control, register, handleSubmit } = useForm({
     resolver: zodResolver(schema),
   });
 
@@ -42,25 +40,24 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
 };
 
 const HobbiesFields: FC<{
-  control: Control<ProfileInputType>;
-  register: UseFormRegister<ProfileInputType>;
+  control: Control;
+  register: UseFormRegister<FieldValues>;
 }> = ({ control, register }) => {
-  const { fields, append, prepend, remove } = useFieldArray<ProfileInputType>({
-    name: 'hobbies',
-    control,
-  });
+  const { fields, append, remove } = useFieldArray({ control, name: 'hobbies' });
 
   return (
     <Fieldset legend="趣味・好きなこと">
       {fields.map((field, index) => (
-        <TextInput
-          key={field.id}
-          label="趣味・好きなこと1"
-          placeholder="ボウリング"
-          {...register(`hobbies.${index}`)}
-        />
+        <Fragment key={field.id}>
+          <TextInput
+            label={`${index + 1}つ目`}
+            placeholder="ボウリング"
+            {...register(`hobbies.${index}`)}
+          />
+          <Button onClick={() => remove(index)}>削除</Button>
+        </Fragment>
       ))}
-      <Button />
+      <Button onClick={() => append('')}>追加</Button>
     </Fieldset>
   );
 };
