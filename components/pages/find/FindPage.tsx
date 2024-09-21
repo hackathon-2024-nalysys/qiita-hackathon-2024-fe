@@ -8,7 +8,7 @@ type TopInterestContentType = {
   tag: { id: string; name: string };
   avatarList: Avatar[];
 };
-const TITLE = 'あなたと同じ趣味を持ってる人リスト';
+const TITLE = '探す';
 
 // MEMO: ロジックとUIの分岐は余裕があったら！
 export const FindPage: FC = () => {
