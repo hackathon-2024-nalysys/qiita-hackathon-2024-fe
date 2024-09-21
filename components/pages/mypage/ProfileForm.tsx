@@ -1,8 +1,9 @@
-import { ChangeEvent, FC, Fragment, useState } from 'react';
+import { FC } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Control, FieldValues, useFieldArray, useForm, UseFormRegister } from 'react-hook-form';
+import { IconTrash } from '@tabler/icons-react';
+import { Control, useFieldArray, useForm, UseFormRegister } from 'react-hook-form';
 import * as z from 'zod';
-import { Button, Fieldset, Flex, TextInput, Title } from '@mantine/core';
+import { ActionIcon, Button, Fieldset, Flex, Text, TextInput, Title } from '@mantine/core';
 
 // WHY: objectのarrayじゃないとuseFieldArrayが使えないみたい https://github.com/orgs/react-hook-form/discussions/7586
 const schema = z.object({
@@ -37,8 +38,21 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
           完了
         </Button>
       </Flex>
-      <TextInput label="ユーザー名" placeholder="趣味 太郎" {...register('name')} />
-      <HobbiesFields control={control} register={register} />
+      <Flex direction={'column'} gap={32} mt={24}>
+        <TextInput label="ユーザー名" placeholder="趣味 太郎" {...register('name')} />
+        <HobbiesFields
+          control={control}
+          register={register}
+          name={'hobbies'}
+          legend="趣味・好きなこと"
+        />
+        <HobbiesFields
+          control={control}
+          register={register}
+          name={'privateHobbies'}
+          legend="秘密の趣味・好きなこと"
+        />
+      </Flex>
     </form>
   );
 };
@@ -46,20 +60,35 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
 const HobbiesFields: FC<{
   control: Control<Schema>;
   register: UseFormRegister<Schema>;
-}> = ({ control, register }) => {
-  const { fields, append, remove } = useFieldArray({ control, name: 'hobbies' });
+  name: 'hobbies' | 'privateHobbies';
+  legend: string;
+}> = ({ control, register, name, legend }) => {
+  const { fields, append, remove } = useFieldArray({ control, name });
 
   return (
-    <Fieldset legend="趣味・好きなこと">
+    <Fieldset
+      style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+      variant="unstyled"
+      legend={<Text>{legend}</Text>}
+    >
       {fields.map((field, index) => (
-        <Fragment key={field.id}>
-          <TextInput
-            label={`${index + 1}つ目`}
-            placeholder="ボウリング"
-            {...register(`hobbies.${index}.value`)}
-          />
-          <Button onClick={() => remove(index)}>削除</Button>
-        </Fragment>
+        <TextInput
+          key={field.id}
+          label={`${index + 1}つ目`}
+          placeholder="ボウリング"
+          size="lg"
+          {...register(`${name}.${index}.value`)}
+          rightSection={
+            <ActionIcon
+              size="sm"
+              variant="subtle"
+              style={{ cursor: 'pointer' }}
+              onClick={() => remove(index)}
+            >
+              <IconTrash />
+            </ActionIcon>
+          }
+        />
       ))}
       <Button onClick={() => append({ value: '' })}>追加</Button>
     </Fieldset>
