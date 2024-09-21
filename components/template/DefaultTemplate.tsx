@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import Link from 'next/link';
-import { IconSearch } from '@tabler/icons-react';
+import { IconSearch, IconUserSearch } from '@tabler/icons-react';
 import { ActionIcon, AppShell, Avatar, Box, Container, Flex, useMantineTheme } from '@mantine/core';
 import { Logo } from './Logo/Logo';
 
@@ -22,10 +22,10 @@ export const DefaultTemplate: FC<DefaultTemplateProps> = ({ children }) => {
       <AppShell.Header>
         <Flex align="center" justify="space-between" p="md" bg={theme.colors.yellow[2]}>
           <Logo />
-          <Flex align="center" justify="flex-end" gap="8px">
+          <Flex align="center" justify="flex-end" gap="12px">
             <Link href="/find" style={{ display: 'flex', alignItems: 'center' }}>
               <ActionIcon size="lg" color={'white'} variant="subtle" aria-label="Find">
-                <IconSearch stroke={2} />
+                <IconUserSearch stroke={2} />
               </ActionIcon>
             </Link>
             <Link href="/mypage" style={{ display: 'flex', alignItems: 'center' }}>
