@@ -1,16 +1,7 @@
 import { FC, ReactNode } from 'react';
 import Link from 'next/link';
 import { IconSearch } from '@tabler/icons-react';
-import {
-  ActionIcon,
-  AppShell,
-  Avatar,
-  Box,
-  Container,
-  Flex,
-  rem,
-  useMantineTheme,
-} from '@mantine/core';
+import { ActionIcon, AppShell, Avatar, Box, Container, Flex, useMantineTheme } from '@mantine/core';
 
 type DefaultTemplateProps = {
   children: ReactNode;
