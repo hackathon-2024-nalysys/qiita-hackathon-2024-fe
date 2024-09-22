@@ -1,7 +1,9 @@
 import { FC } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Avatar, Box, Flex, Image, Title } from '@mantine/core';
 import { DefaultTemplate } from '@/components/template/DefaultTemplate';
 import { HoverPopOver } from '@/components/ui/HoverPopOver/HoverPopOver';
+import { fetchMe } from '@/usecase/me';
 
 type Avatar = { id: string; imageSrc: string };
 type TopInterestContentType = {
@@ -12,11 +14,17 @@ const TITLE = '探す';
 
 // MEMO: ロジックとUIの分岐は余裕があったら！
 export const FindPage: FC = () => {
+  const { data } = useQuery({
+    queryKey: ['me'],
+    queryFn: fetchMe,
+  });
+  console.log({ data });
+
   // TODO: APIで取得
   const NearHobyPeople: Avatar[] = [
-    { id: '1111aaa', imageSrc: 'https://picsum.photos/76/76' },
-    { id: '1111bbb', imageSrc: 'https://picsum.photos/76/76' },
-    { id: '1111ccc', imageSrc: 'https://picsum.photos/76/76' },
+    { id: '1111aaa', imageSrc: '/avatarImg/uifaces-human-image-man1.jpg' },
+    { id: '1111bbb', imageSrc: '/avatarImg/uifaces-human-image-woman1.jpg' },
+    { id: '1111ccc', imageSrc: '/avatarImg/uifaces-human-image-man2.jpg' },
   ];
 
   // TODO: APIで取得
