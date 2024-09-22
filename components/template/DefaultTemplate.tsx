@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { IconSearch, IconUserSearch } from '@tabler/icons-react';
-import { ActionIcon, AppShell, Avatar, Box, Container, Flex, useMantineTheme } from '@mantine/core';
+import { IconUserSearch } from '@tabler/icons-react';
+import { ActionIcon, AppShell, Avatar, Container, Flex, useMantineTheme } from '@mantine/core';
 import { Logo } from './Logo/Logo';
 
 type DefaultTemplateProps = {
@@ -14,7 +14,6 @@ const AVATAR_ICON = '/avatarImg/me.jpg';
 export const DefaultTemplate: FC<DefaultTemplateProps> = ({ children }) => {
   const theme = useMantineTheme();
   const isLoginPage = useRouter().pathname === '/login';
-  console.log(isLoginPage);
 
   return (
     <AppShell
@@ -28,7 +27,7 @@ export const DefaultTemplate: FC<DefaultTemplateProps> = ({ children }) => {
           {!isLoginPage && (
             <Flex align="center" justify="flex-end" gap="12px">
               <Link href="/find" style={{ display: 'flex', alignItems: 'center' }}>
-                <ActionIcon size="lg" color={'white'} variant="subtle" aria-label="Find">
+                <ActionIcon size="lg" color="white" variant="subtle" aria-label="Find">
                   <IconUserSearch stroke={2} />
                 </ActionIcon>
               </Link>
@@ -36,7 +35,7 @@ export const DefaultTemplate: FC<DefaultTemplateProps> = ({ children }) => {
                 <ActionIcon
                   size="lg"
                   style={{ border: '2px solid white' }}
-                  radius={'xl'}
+                  radius="xl"
                   variant="outline"
                   aria-label="MyPage"
                 >
