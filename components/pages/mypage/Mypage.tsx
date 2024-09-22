@@ -1,6 +1,10 @@
 import { FC, useEffect, useState } from 'react';
+import router from 'next/router';
+import { useMutation } from '@tanstack/react-query';
 import { Flex, Loader, Skeleton } from '@mantine/core';
 import { DefaultTemplate } from '@/components/template/DefaultTemplate';
+import { fetchMe } from '@/usecase/me';
+import { patchMe } from '@/usecase/patchMe';
 import { ProfileForm, ProfileFormProps } from './ProfileForm';
 
 type AsyncResult<T> = {
@@ -37,11 +41,11 @@ function useFetchMyProfile(): AsyncResult<ProfileFormProps['defaultValues']> {
     // データを取得する関数
     const fetchData = async () => {
       try {
-        const response = await dummyAsyncFunction();
-        const hobbies = response.data.hobbies.map((hobby) => ({ value: hobby }));
+        const response = await fetchMe();
+        const hobbies = response.data.publicHobbies.map((hobby) => ({ value: hobby }));
         const privateHobbies = response.data.privateHobbies?.map((hobby) => ({ value: hobby }));
         setData({
-          name: response.data.name,
+          name: response.data.displayName,
           hobbies: hobbies.length !== 0 ? hobbies : [{ value: '' }],
           privateHobbies: privateHobbies?.length !== 0 ? privateHobbies : [{ value: '' }],
         });
@@ -60,6 +64,17 @@ function useFetchMyProfile(): AsyncResult<ProfileFormProps['defaultValues']> {
 
 export const Mypage: FC = () => {
   const { data, loading } = useFetchMyProfile();
+  const { mutate, isPending } = useMutation({
+    mutationFn: patchMe,
+    onSuccess: () => router.push('/find'),
+  });
+  const onSubmit: ProfileFormProps['onSubmit'] = (data) => {
+    mutate({
+      displayName: data.name,
+      publicHobbies: data.hobbies.map((hobby) => hobby.value),
+      privateHobbies: data.privateHobbies?.map((hobby) => hobby.value) ?? [],
+    });
+  };
   return (
     <DefaultTemplate>
       {loading ? (
@@ -71,7 +86,7 @@ export const Mypage: FC = () => {
         </Flex>
       ) : (
         <ProfileForm
-          onSubmit={() => console.log('hoge')}
+          onSubmit={onSubmit}
           defaultValues={
             data
               ? data

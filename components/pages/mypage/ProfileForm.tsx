@@ -41,7 +41,6 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
     resolver: zodResolver(schema),
     defaultValues,
   });
-  console.dir({ errors }, { depth: 2 });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
