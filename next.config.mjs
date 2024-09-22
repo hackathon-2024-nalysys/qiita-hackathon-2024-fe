@@ -9,4 +9,12 @@ export default withBundleAnalyzer({
   eslint: {
     ignoreDuringBuilds: true,
   },
+  rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://hackathon.grainrigi.net/:path*',
+      }
+    ];
+  }
 });
