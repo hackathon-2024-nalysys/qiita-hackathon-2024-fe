@@ -3,6 +3,7 @@ import { https } from '@/lib/https';
 export type Account = {
   id: string;
   name: string;
+  icon?: string;
   displayName: string;
   affiliation: string;
   publicHobbies: string[];

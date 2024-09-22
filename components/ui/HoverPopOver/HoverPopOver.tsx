@@ -7,14 +7,16 @@ type HoverPopOverType = {
   children: ReactNode;
   data?: Account;
   position?: FloatingPosition;
+  isPublic?: boolean;
 };
+const COMMA = ',';
 export const HoverPopOver: FC<HoverPopOverType> = ({
   children,
   data,
   position = 'right-start',
+  isPublic = true,
 }) => {
-  const { displayName, affiliation, publicHobbies } = data ?? {};
-
+  const { displayName, affiliation, publicHobbies, privateHobbies } = data ?? {};
   const [opened, { close, open }] = useDisclosure(false);
   return (
     <Popover width={240} position={position} withArrow shadow="md" opened={opened}>
@@ -28,10 +30,15 @@ export const HoverPopOver: FC<HoverPopOverType> = ({
           <>
             <Text size="sm">・ユーザー名: {displayName}</Text>
             {affiliation && <Text size="sm">・所属: {affiliation}</Text>}
-            {publicHobbies && <Text size="sm">・趣味: {publicHobbies.join(',')}</Text>}
+            {publicHobbies && (
+              <Text size="sm">
+                ・趣味: {publicHobbies.join(',')}
+                {!isPublic && COMMA + (privateHobbies?.join(',') ?? '')}
+              </Text>
+            )}
           </>
         ) : (
-          <Text size="sm"> 情報を取得できませんでした</Text>
+          <Text size="sm">情報を取得できませんでした</Text>
         )}
       </Popover.Dropdown>
     </Popover>

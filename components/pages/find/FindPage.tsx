@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { IconLock } from '@tabler/icons-react';
+import { IconLockOpen } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { Avatar, Box, Flex, Image, Skeleton, Title } from '@mantine/core';
 import { DefaultTemplate } from '@/components/template/DefaultTemplate';
@@ -59,14 +59,14 @@ export const FindPage: FC = () => {
                     <Title order={1} size="h4">
                       {hobby}
                     </Title>
-                    {!isPublic ? <IconLock /> : <SecretHobby />}
+                    {isPublic ? <IconLockOpen /> : <SecretHobby />}
                   </Flex>
                   <Flex mt={16} gap={16} wrap="wrap">
                     {accounts.map((account) => (
-                      <HoverPopOver key={account.id} data={account}>
+                      <HoverPopOver key={account.id} data={account} isPublic={isPublic}>
                         <Avatar
                           style={{ cursor: 'pointer' }}
-                          /*src={imageSrc} */
+                          src={account.icon}
                           size="xl"
                           radius="50%"
                         />
