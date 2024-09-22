@@ -9,7 +9,7 @@ type DefaultTemplateProps = {
 };
 
 const FOOTER_HEIGHT = 60;
-const AVATAR_ICON = 'https://picsum.photos/76/76';
+const AVATAR_ICON = '/avatarImg/me.jpg';
 export const DefaultTemplate: FC<DefaultTemplateProps> = ({ children }) => {
   const theme = useMantineTheme();
 
