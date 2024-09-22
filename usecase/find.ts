@@ -9,7 +9,7 @@ export type Account = {
   privateHobbies: string[];
 };
 type FellowsDataType = {
-  byHobby: { hobby: string; accounts: Account[] }[];
+  byHobby: { hobby: string; isPublic: boolean; accounts: Account[] }[];
 };
 export const fetchFellows = async () => {
   const response = await https.get<FellowsDataType>('/accounts/fellows');

@@ -1,8 +1,10 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
+// import { IconLock } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { Avatar, Box, Flex, Image, Skeleton, Title } from '@mantine/core';
 import { DefaultTemplate } from '@/components/template/DefaultTemplate';
 import { HoverPopOver } from '@/components/ui/HoverPopOver/HoverPopOver';
+import { SecretHobby } from '@/components/ui/SecretHobby/SecretHobby';
 import { fetchFellows } from '@/usecase/find';
 
 type Avatar = { id: string; imageSrc: string };
@@ -15,14 +17,17 @@ export const FindPage: FC = () => {
     queryFn: fetchFellows,
   });
 
-  console.warn({ data });
-
   // TODO: APIで取得
   const NearHobyPeople: Avatar[] = [
     { id: '1111aaa', imageSrc: '/avatarImg/uifaces-human-image-man1.jpg' },
     { id: '1111bbb', imageSrc: '/avatarImg/uifaces-human-image-woman1.jpg' },
     { id: '1111ccc', imageSrc: '/avatarImg/uifaces-human-image-man2.jpg' },
   ];
+
+  const sortHobby = useMemo(
+    () => data?.data.byHobby.sort((a, b) => Number(a.isPublic) - Number(b.isPublic)),
+    [data]
+  );
 
   return (
     <DefaultTemplate>
@@ -47,12 +52,15 @@ export const FindPage: FC = () => {
               </Flex>
             </Box>
 
-            {data?.data.byHobby.map(({ hobby, accounts }, index) =>
+            {sortHobby?.map(({ hobby, isPublic, accounts }, index) =>
               accounts.length > 0 ? (
                 <Box mt={32} key={`hobby-${index}`}>
-                  <Title order={1} size="h4">
-                    {hobby}
-                  </Title>
+                  <Flex gap={16}>
+                    <Title order={1} size="h4">
+                      {hobby}
+                    </Title>
+                    {!isPublic && <SecretHobby />}
+                  </Flex>
                   <Flex mt={16} gap={16} wrap="wrap">
                     {accounts.map((account) => (
                       <HoverPopOver key={account.id} data={account}>
