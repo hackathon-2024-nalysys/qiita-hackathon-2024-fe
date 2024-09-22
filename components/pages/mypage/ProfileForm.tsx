@@ -52,7 +52,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
           完了
         </Button>
       </Flex>
-      <Flex direction={'column'} gap={32} mt={24}>
+      <Flex direction="column" gap={32} mt={24}>
         <TextInput
           size="lg"
           label="ユーザー名"
@@ -63,14 +63,14 @@ export const ProfileForm: FC<ProfileFormProps> = ({ onSubmit, defaultValues }) =
         <HobbiesFields
           control={control}
           register={register}
-          name={'hobbies'}
-          legend="趣味・好きなこと"
+          name="privateHobbies"
+          legend="秘密の趣味・好きなこと"
         />
         <HobbiesFields
           control={control}
           register={register}
-          name={'privateHobbies'}
-          legend="秘密の趣味・好きなこと"
+          name="hobbies"
+          legend="公開する趣味・好きなこと"
         />
       </Flex>
     </form>
@@ -114,11 +114,10 @@ const HobbiesFields: FC<{
           }
         />
       ))}
-      {/* <Button size="lg" variant="outline" bg={'white'} onClick={() => append({ value: '' })}> */}
       <Button
         size="lg"
         variant="outline"
-        bg={'white'}
+        bg="white"
         onClick={() => append({ value: '' })}
         color={theme.colors.yellow[2]}
       >
