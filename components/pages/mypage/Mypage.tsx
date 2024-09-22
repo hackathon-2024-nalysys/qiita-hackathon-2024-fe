@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import router from 'next/router';
 import { useMutation } from '@tanstack/react-query';
-import { Flex, Loader, Skeleton } from '@mantine/core';
+import { Flex, Skeleton } from '@mantine/core';
 import { DefaultTemplate } from '@/components/template/DefaultTemplate';
 import { fetchMe } from '@/usecase/me';
 import { patchMe } from '@/usecase/patchMe';
@@ -64,15 +64,16 @@ function useFetchMyProfile(): AsyncResult<ProfileFormProps['defaultValues']> {
 
 export const Mypage: FC = () => {
   const { data, loading } = useFetchMyProfile();
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: patchMe,
     onSuccess: () => router.push('/find'),
   });
-  const onSubmit: ProfileFormProps['onSubmit'] = (data) => {
+  const onSubmit: ProfileFormProps['onSubmit'] = (formData) => {
     mutate({
-      displayName: data.name,
-      publicHobbies: data.hobbies.map((hobby) => hobby.value),
-      privateHobbies: data.privateHobbies?.map((hobby) => hobby.value) ?? [],
+      displayName: formData.name,
+      publicHobbies: formData.hobbies.map((hobby) => hobby.value).filter((value) => value),
+      privateHobbies:
+        formData.privateHobbies?.map((hobby) => hobby.value)?.filter((value) => value) ?? [],
     });
   };
   return (
